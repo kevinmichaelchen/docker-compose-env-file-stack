@@ -22,3 +22,7 @@ However, the port forwarding is where things are surprising. It's forwarded as
 ```
 8080:8080
 ```
+
+This is an informative [StackOverflow post](https://stackoverflow.com/questions/52664673/how-to-get-port-of-docker-compose-from-env-file):
+> The env_file option will only set environment variables in the Docker
+> container itself. Not on the host which is used during the Compose 'build'.
