@@ -1,0 +1,14 @@
+version: '3.8'
+services:
+  app:
+    env_file:
+      - .env
+      - app.env
+    environment:
+      FOO: bar
+      FIZZ: "buzz"
+    build:
+      dockerfile: ./Dockerfile
+      context: .
+    ports:
+      - "${PORT}:${PORT}"
