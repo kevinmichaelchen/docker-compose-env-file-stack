@@ -1,27 +1,22 @@
-A demonstration of possibly unintuitive behavior.
+A demonstration of how to use the `.env` file properly.
 
-Here we have a simple Go program that logs its `PORT` env var and spins up a
-simple HTTP server on that port.
+You can provide the `.env` file as an `env_file`, but its
+[primary purpose](https://docs.docker.com/compose/environment-variables/#the-env-file)
+is to be used for variables in the Compose file itself, not in the container.
 
-We also have a Docker Compose file that stacks 2 different `env_file` options,
-and does a port-forwarding.
+To make this more clear, I've created a `base.env` for container env vars.
 ```yaml
     env_file:
-      - .env
-      - app.env
+      - base.env
+      - svc-a.env
     ports:
-      - "${PORT}:${PORT}"
+      - "${SVC_A_HOST_PORT}:9090"
 ```
 
-## Expectations
-`.env` has a port of 8080, and `app.env` has a port of 9090. Because `app.env`
-is stacked on top of `.env`, its 9090 that is ultimately set as the value.
-This is as you'd expect.
+The `SVC_A_HOST_PORT` comes from the `.env` file. It only affects the host's
+port, not the actual port our container runs its HTTP server on.
 
-However, the port forwarding is where things are surprising. It's forwarded as
-```
-8080:8080
-```
+9090 needs to be hard-coded, as that as what port gets used internally.
 
 This is an informative [StackOverflow post](https://stackoverflow.com/questions/52664673/how-to-get-port-of-docker-compose-from-env-file):
 > The env_file option will only set environment variables in the Docker

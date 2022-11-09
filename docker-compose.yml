@@ -2,8 +2,8 @@ version: '3.8'
 services:
   app:
     env_file:
-      - .env
-      - app.env
+      - base.env
+      - svc-a.env
     environment:
       FOO: bar
       FIZZ: "buzz"
@@ -11,4 +11,4 @@ services:
       dockerfile: ./Dockerfile
       context: .
     ports:
-      - "${PORT}:${PORT}"
+      - "${SVC_A_HOST_PORT}:9090"

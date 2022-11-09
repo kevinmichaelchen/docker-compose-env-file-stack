@@ -10,6 +10,7 @@ import (
 func main() {
 	port := os.Getenv("PORT")
 	fmt.Println("Port:", port)
+	fmt.Println("Name:", os.Getenv("NAME"))
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("ok"))
 	})
